@@ -21,19 +21,5 @@ app.use(express.static("public"));
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workouts", { useNewUrlParser: true });
 
 app.listen(PORT, () => {
-    console.log(`App running on port ${PORT}!`);
+    console.log(`App running on http://localhost:${PORT}`);
 });
-
-// app.post("/submit", ({ body }, res) => {
-//     const user = new User(body);
-//     user.setFullName();
-//     user.lastUpdatedDate();
-
-//     User.create(user)
-//         .then(dbUser => {
-//             res.json(dbUser);
-//         })
-//         .catch(err => {
-//             res.json(err);
-//         });
-// });

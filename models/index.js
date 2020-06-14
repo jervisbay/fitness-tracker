@@ -1,2 +1,3 @@
-// Need to change to module.exports
-module.exports = { Workouts: require("./Workout") }
+module.exports = {
+    Workout: require('./workout')
+};

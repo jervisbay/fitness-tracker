@@ -1,6 +1,7 @@
 // Use Router to route requests
 const router = require("express").Router();
 const path = require("path");
+const Workout = require("../models/workout.js")
 
 // database
 const db = require("../models");
@@ -8,7 +9,7 @@ const db = require("../models");
 // api routes
 router.get("/api/workouts", (req, res) => {
     // res.json all the workouts from workout collection
-    db.Workouts.find()
+    Workout.find()
         .then(data => {
             res.json(data)
         })
@@ -16,13 +17,7 @@ router.get("/api/workouts", (req, res) => {
 })
 
 router.post("/api/workouts", (req, res) => {
-    // const workout = new db.Workouts()
-    // console.log(workout);
-
-    workout = new db.Workouts();
-    workout.calcTotalDuration();
-
-    db.Workouts.create(workout)
+    Workout.create({})
         .then(data => {
             res.json(data)
         })
@@ -30,19 +25,20 @@ router.post("/api/workouts", (req, res) => {
 
 })
 
-router.put("/api/workouts:id", (req, res) => {
-    // push new exercise
-
-    // update workout by id db.workout.find({_id: mongojs.ObjectId(req.params.id)}) with req.body data
-    // $set: {$push: {exercise: req.body}}
-
-    // respond w/ db response (pass data back to front end)   
-
+router.put("/api/workouts/:id", (req, res) => {
+    Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } })
+        .then(data => { res.json(data) })
+        .catch(e => { res.json(e) })
 })
 
-
-
-
+router.get("/api/workouts/range", (req, res) => {
+    Workout.find({}).limit(7)
+        .then(data => {
+            console.log(data);
+            res.json(data)
+        })
+        .catch(e => { console.log(e) })
+})
 
 
 
