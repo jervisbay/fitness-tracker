@@ -4,7 +4,7 @@ const path = require("path");
 const Workout = require("../models/workout.js")
 
 // database
-// const db = require("../models");
+const db = require("../models");
 
 // api routes
 router.get("/api/workouts", (req, res) => {
